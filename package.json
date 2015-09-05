@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
   "dependencies": {
-    "asap": "~2.0.3",
     "bytewise": "~1.1.0"
   },
   "devDependencies": {
