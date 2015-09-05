@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
   "dependencies": {
-    "bytewise": "~1.1.0"
+    "bytewise": "^1.1.0"
   },
   "devDependencies": {
     "levelup": "~1.2.1",
