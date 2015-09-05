@@ -15,6 +15,8 @@ function LevelLRUCache(level, limit) {
 
 // Cache a value by key.
 LevelLRUCache.prototype.put = function(cacheKey, value, callback) {
+  if (typeof cacheKey !== 'string') {
+    throw new TypeError('key must be a string') }
   var cache = this
   cache._trimOperations(function(error, trimOperations) {
     if (error) { callback(error) }
@@ -126,6 +128,8 @@ LevelLRUCache.prototype.count = function(callback) {
     callback(noError, count) }) }
 
 LevelLRUCache.prototype.get = function(cacheKey, callback) {
+  if (typeof cacheKey !== 'string') {
+    throw new TypeError('key must be a string') }
   var cache = this
   // Find all existing values with the key.
   cache._existingLevelKeys(cacheKey, function(error, existingLevelKeys) {

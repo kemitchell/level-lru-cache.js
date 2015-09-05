@@ -8,6 +8,18 @@ function testCache(limit) {
   var cache = new Cache(level, limit)
   return cache }
 
+tape.test('string keys', function(test) {
+  var cache = testCache()
+  test.throws(
+    function() { cache.put(new Date(), 'x') },
+    /string/,
+    '.set() requires string keys')
+  test.throws(
+    function() { cache.get(new Date()) },
+    /string/,
+    '.get() requires string keys')
+  test.end() })
+
 tape.test('set and get', function(test) {
   test.plan(5)
   var cache = testCache()
