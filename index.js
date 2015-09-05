@@ -19,8 +19,3 @@ var prototype = LevelLRUCache.prototype
 prototype.count = require('./public/count')
 prototype.get = require('./public/get')
 prototype.put = require('./public/put')
-
-prototype._allLevelKeys  = require('./private/all-level-keys')
-prototype._existingLevelKeysForCacheKey = require('./private/existing-level-keys-for-cache-key')
-prototype._extra = require('./private/extra')
-prototype._trimOperations = require('./private/trim-operations')

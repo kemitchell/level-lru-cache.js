@@ -1,9 +1,9 @@
 var encode = require('bytewise').encode
 
-module.exports = _allLevelKeys
+module.exports = allLevelKeys
 
 // Calls back with an array of all level keys in the underlying LevelUP.
-function _allLevelKeys(callback) {
+function allLevelKeys(callback) {
   var levelKeys = [ ]
   var errored = false
   this.level.createReadStream({

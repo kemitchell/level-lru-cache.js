@@ -1,18 +1,20 @@
-var countCacheKeys = require('../helper/count-cache-keys')
+var allLevelKeys = require('./all-level-keys')
+var countCacheKeys = require('./count-cache-keys')
 var decode = require('bytewise').decode
-var deleteOperation = require('../helper/delete-operation')
+var extraHelper = require('./extra')
+var deleteOperation = require('./delete-operation')
 
-module.exports = _trimOperations
+module.exports = trimOperations
 
 // Call back with a list of LevelUP batch operations from clearing old
 // records that need to be trimmed to say within the cache's limit.
-function _trimOperations(callback) {
+function trimOperations(callback) {
   var cache = this
-  this._allLevelKeys(function(error, levelKeys) {
+  allLevelKeys.call(cache, function(error, levelKeys) {
     if (error) { callback(error) }
     else {
       var cacheKeyCount = countCacheKeys(levelKeys)
-      var extra = cache._extra(cacheKeyCount)
+      var extra = extraHelper.call(cache, cacheKeyCount)
       // We're still within quota. No need to trim anything.
       if (extra < 1) { callback(null, [ ]) }
       else {

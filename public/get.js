@@ -1,5 +1,6 @@
 var decode = require('bytewise').decode
 var deleteOperation = require('../helper/delete-operation')
+var existingLevelKeysForCacheKey = require('../helper/existing-level-keys-for-cache-key')
 var putOperation = require('../helper/put-operation')
 
 module.exports = get
@@ -10,7 +11,7 @@ function get(cacheKey, callback) {
     throw new TypeError('key must be a string') }
   var cache = this
   // Find all existing LevelUP keys with the key.
-  cache._existingLevelKeysForCacheKey(cacheKey, function(error, existingLevelKeys) {
+  existingLevelKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelKeys) {
     // If there aren't any, return undefined.
     if (existingLevelKeys.length === 0) { callback(null, undefined) }
     else {
