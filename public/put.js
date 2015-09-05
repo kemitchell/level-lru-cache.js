@@ -1,7 +1,7 @@
-var deleteOperation = require('../helper/delete-operation')
-var putOperation = require('../helper/put-operation')
-var trimOperations = require('../helper/trim-operations')
-var existingLevelKeysForCacheKey = require('../helper/existing-level-keys-for-cache-key')
+var deleteOperation = require('../utility/delete-operation')
+var putOperation = require('../utility/put-operation')
+var trimOperations = require('../utility/trim-operations')
+var existingLevelKeysForCacheKey = require('../utility/existing-level-keys-for-cache-key')
 
 // Cache a value by key.
 module.exports = put

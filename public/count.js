@@ -1,5 +1,5 @@
-var countCacheKeys = require('../helper/count-cache-keys')
-var allLevelKeys = require('../helper/all-level-keys')
+var countCacheKeys = require('../utility/count-cache-keys')
+var allLevelKeys = require('../utility/all-level-keys')
 
 module.exports = count
 
