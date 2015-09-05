@@ -123,8 +123,7 @@ LevelLRUCache.prototype._trimOperations = function(callback) {
             return keyLatestPairs.concat([
               [ cacheKey, cacheKeyToTimestampMap[cacheKey] ] ]) },
           [ ])
-        .sort(function(a, b) {
-          return a[1] - b[1] })
+        .sort(function(a, b) { return a[1] - b[1] })
         // [ cache key, latest timestamp ] elements for the records that need
         // to be trimmed are at the front of that Array.
         var toDelete = keyLatestPairs.slice(0, extra)
