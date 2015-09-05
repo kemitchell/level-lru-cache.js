@@ -21,6 +21,23 @@ function LevelLRUCache(level, limit) {
   this.level = level
   this.limit = ( limit === undefined ? undefined : ( limit - 1 ) ) }
 
+
+function deleteOperation(levelKey) {
+  return { type: 'del', key: levelKey } }
+
+function putOperation(cacheKey, value) {
+  return {
+    type: 'put',
+    key: bytewise.encode([ cacheKey, Date.now() ]),
+    value: value } }
+
+LevelLRUCache.prototype._createAllKeysReadStream = function() {
+  return this.level.createReadStream({
+    keys: true,
+    values: false,
+    gt: encode([ null ]),
+    lt: encode([ undefined ]) }) }
+
 // Cache a value by key.
 LevelLRUCache.prototype.put = function(cacheKey, value, callback) {
   // The cache key must be a string.
@@ -37,16 +54,9 @@ LevelLRUCache.prototype.put = function(cacheKey, value, callback) {
         else {
           var batchOperations = trimOperations
             // ... delete any older cache records for the given cache key ...
-            .concat(
-              existingLevelKeys
-              .map(function(existingLevelKey) {
-                return { type: 'del', key: existingLevelKey } }))
+            .concat(existingLevelKeys.map(deleteOperation))
             // ... create a a new cache record for this key ...
-            .concat({
-              type: 'put',
-              // ... at the current timestamp.
-              key: bytewise.encode([ cacheKey, Date.now() ]),
-              value: value })
+            .concat(putOperation(cacheKey, value))
           // Run the batch.
           cache.level.batch(batchOperations, function(error) {
             if (error) { callback(error) }
@@ -86,7 +96,7 @@ LevelLRUCache.prototype._existingLevelKeys = function(cacheKey, callback) {
 // Call back with a list of LevelUP batch operations from clearing old
 // records that need to be trimmed to say within the cache's limit.
 LevelLRUCache.prototype._trimOperations = function(callback) {
-  var level = this.level
+  var cache = this
   this._extra(function(error, extra) {
     // We're still within quota. No need to trim anything.
     if (extra < 1) {
@@ -96,11 +106,7 @@ LevelLRUCache.prototype._trimOperations = function(callback) {
       var cacheKeyToLevelKeysMap = { }
       // A map from cache key to latest timestamp
       var cacheKeyToTimestampMap = { }
-      level.createReadStream({
-        keys: true,
-        values: false,
-        gt: encode([ null ]),
-        lt: encode([ undefined ]) })
+      cache._createAllKeysReadStream()
       .on('data', function(levelKey) {
         var decoded = decode(levelKey)
         var cacheKey = decoded[0]
@@ -134,11 +140,8 @@ LevelLRUCache.prototype._trimOperations = function(callback) {
           .reduce(
             function(batch, cacheKey) {
               // ... every record for those cache keys ...
-              return batch
-              .concat(
-                cacheKeyToLevelKeysMap[cacheKey]
-                .map(function(levelKey) {
-                  return { type: 'del', key: levelKey } })) },
+              var levelKeys = cacheKeyToLevelKeysMap[cacheKey]
+              return batch.concat(levelKeys.map(deleteOperation)) },
             [ ])
         // ... and call back with it.
         callback(noError, batchOperations) }) } }) }
@@ -148,11 +151,7 @@ LevelLRUCache.prototype.count = function(callback) {
   // Scan call cache keys, counting keys.
   var count = 0
   var cacheKeysSeen = [ ]
-  this.level.createReadStream({
-    keys: true,
-    values: false,
-    gt: encode([ null ]),
-    lt: encode([ undefined ]) })
+  this._createAllKeysReadStream()
   .on('data', function(levelKey) {
     var decoded = decode(levelKey)
     var cacheKey = decoded[0]
@@ -187,15 +186,10 @@ LevelLRUCache.prototype.get = function(cacheKey, callback) {
         if (error) { callback(error) }
         else {
           // Build a batch of operations that will ...
-          var batchOperations = existingLevelKeys
-          // ... delete all existing records for this key and ...
-          .map(function(existingLevelKey) {
-            return { type: 'del', key: existingLevelKey } })
-          // ... write a new record with the current timestamp.
-          .concat({
-            type: 'put',
-            key: encode([ cacheKey, Date.now() ]),
-            value: latestValue })
+          // ... delete all existing records for this key ...
+          var batchOperations = existingLevelKeys.map(deleteOperation)
+          // ... and write a new record with the current timestamp.
+          .concat(putOperation(cacheKey, latestValue))
           // Run the batch.
           cache.level.batch(batchOperations, function(error) {
             if (error) { callback(error) }
