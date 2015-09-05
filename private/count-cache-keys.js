@@ -1,4 +1,4 @@
-var decode = require('bytewise').decode
+var decode = require('./decode')
 
 module.exports = countCacheKeys
 

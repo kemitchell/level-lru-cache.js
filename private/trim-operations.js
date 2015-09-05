@@ -1,6 +1,6 @@
 var allLevelKeys = require('./all-level-keys')
 var countCacheKeys = require('./count-cache-keys')
-var decode = require('bytewise').decode
+var decode = require('./decode')
 var extraHelper = require('./extra')
 var deleteOperation = require('./delete-operation')
 

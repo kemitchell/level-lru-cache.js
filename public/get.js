@@ -1,4 +1,4 @@
-var decode = require('bytewise').decode
+var decode = require('../private/decode')
 var deleteOperation = require('../private/delete-operation')
 var existingLevelKeysForCacheKey = require('../private/existing-level-keys-for-cache-key')
 var putOperation = require('../private/put-operation')

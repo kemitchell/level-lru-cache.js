@@ -1,4 +1,4 @@
-var encode = require('bytewise').encode
+var encode = require('./encode')
 
 module.exports =  existingLevelKeysForCacheKey
 
