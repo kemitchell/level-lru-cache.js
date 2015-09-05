@@ -3,9 +3,9 @@ var levelup = require('levelup')
 var memdown = require('memdown')
 var tape = require('tape')
 
-function testCache(maxItems) {
+function testCache(limit) {
   var level = levelup({ db: memdown })
-  var cache = new Cache(level, maxItems)
+  var cache = new Cache(level, limit)
   return cache }
 
 tape.test('set and get', function(test) {
@@ -21,7 +21,7 @@ tape.test('set and get', function(test) {
         test.equal(count, 1, 'count is 1') }) }) }) })
 
 tape.test('rolls off old values', function(test) {
-  test.plan(3)
+  test.plan(4)
   var cache = testCache(1)
   cache.put('a', '1', function(error) {
     test.error(error, 'no put error')

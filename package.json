@@ -1,11 +1,10 @@
 {
   "name": "level-lru-cache",
+  "description": "simple LRU cache atop LevelUp",
   "version": "0.0.0",
-  "description": "",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
-  "repository": "kemitchell/level-lru-cache.js",
-  "license": "MIT",
   "dependencies": {
+    "asap": "~2.0.3",
     "bytewise": "~1.1.0"
   },
   "devDependencies": {
@@ -13,6 +12,8 @@
     "memdown": "~1.0.0",
     "tape": "~4.2.0"
   },
+  "license": "MIT",
+  "repository": "kemitchell/level-lru-cache.js",
   "scripts": {
     "test": "tape test.js"
   }
