@@ -36,7 +36,7 @@ LevelLRUCache.prototype.put = function(cacheKey, value, callback) {
               if (error) { callback(error) }
               else { callback(noError) } }) } }) } }) }
 
-LevelLRUCache.prototype.extra = function(callback) {
+LevelLRUCache.prototype._extra = function(callback) {
   var limit = this.limit
   if (limit === undefined) {
     asap(function() { callback(noError, 0) }) }
@@ -63,7 +63,7 @@ LevelLRUCache.prototype._existingLevelKeys = function(cacheKey, callback) {
 
 LevelLRUCache.prototype._trimOperations = function(callback) {
   var level = this.level
-  this.extra(function(error, extra) {
+  this._extra(function(error, extra) {
     var keyToLevelKeys = { }
     var keyToTimestamp = { }
     if (extra > 0) {
