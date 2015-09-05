@@ -1,0 +1,19 @@
+{
+  "name": "level-lru-cache",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "repository": "kemitchell/level-lru-cache.js",
+  "license": "MIT",
+  "dependencies": {
+    "bytewise": "~1.1.0"
+  },
+  "devDependencies": {
+    "levelup": "~1.2.1",
+    "memdown": "~1.0.0",
+    "tape": "~4.2.0"
+  },
+  "scripts": {
+    "test": "tape test.js"
+  }
+}
