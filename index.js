@@ -112,7 +112,7 @@ LevelLRUCache.prototype._trimOperations = function(callback) {
         // Note this timestamp if it's the newest we've seen for its cache key.
         var newer = (
           !cacheKeyToTimestampMap.hasOwnProperty(cacheKey) ||
-          cacheKeyToTimestampMap[cacheKey] < timestamp )
+          timestamp > cacheKeyToTimestampMap[cacheKey])
         if (newer) {
           cacheKeyToTimestampMap[cacheKey] = timestamp } })
       .on('end', function() {
