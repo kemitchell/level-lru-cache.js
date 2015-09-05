@@ -14,8 +14,6 @@ function LevelLRUCache(level, limit) {
   this.level = level
   this.limit = ( limit === undefined ? undefined : ( limit - 1 ) ) }
 
-var prototype = LevelLRUCache.prototype
-
-prototype.count = require('./public/count')
-prototype.get = require('./public/get')
-prototype.put = require('./public/put')
+LevelLRUCache.prototype.count = require('./public/count')
+LevelLRUCache.prototype.get = require('./public/get')
+LevelLRUCache.prototype.put = require('./public/put')
