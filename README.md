@@ -19,8 +19,6 @@ cache.get('string key', function(error, value) {
   /* Value is `undefined` if the cache doesn't have a value. */ })
 ```
 
-Functions on `prototype` prefixed with `_` are internal, and are not semantically versioned.
-
 # Under the Hood
 
 The cache stores values as records. Each record's key combines the cache key and a timestamp. On `put`, the cache counts stored records, compares to the cache limit, if any, and deletes records for the oldest keys as it adds a record for the new value. On `get`, the cache finds all the records for the key, deletes them all, notes the most recent value, creates a new record for the value, and returns the value.
