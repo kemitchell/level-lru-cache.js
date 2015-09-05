@@ -1,7 +1,7 @@
 var decode = require('bytewise').decode
-var deleteOperation = require('../utility/delete-operation')
-var existingLevelKeysForCacheKey = require('../utility/existing-level-keys-for-cache-key')
-var putOperation = require('../utility/put-operation')
+var deleteOperation = require('../private/delete-operation')
+var existingLevelKeysForCacheKey = require('../private/existing-level-keys-for-cache-key')
+var putOperation = require('../private/put-operation')
 
 module.exports = get
 
