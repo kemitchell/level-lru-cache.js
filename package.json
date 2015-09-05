@@ -11,6 +11,11 @@
     "memdown": "~1.0.0",
     "tape": "~4.2.0"
   },
+  "keywords": [
+    "cache",
+    "level",
+    "lru"
+  ],
   "license": "MIT",
   "repository": "kemitchell/level-lru-cache.js",
   "scripts": {
