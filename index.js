@@ -32,15 +32,15 @@ LevelLRUCache.prototype.put = function(cacheKey, value, callback) {
   cache._trimOperations(function(error, trimOperations) {
     if (error) { callback(error) }
     else {
-      cache._existingLevelKeys(cacheKey, function(error, exitingLevelKeys) {
+      cache._existingLevelKeys(cacheKey, function(error, existingLevelKeys) {
         if (error) { callback(error) }
         else {
           var batchOperations = trimOperations
             // ... delete any older cache records for the given cache key ...
             .concat(
-              exitingLevelKeys
-              .map(function(exitingLevelKey) {
-                return { type: 'del', key: exitingLevelKey } }))
+              existingLevelKeys
+              .map(function(existingLevelKey) {
+                return { type: 'del', key: existingLevelKey } }))
             // ... create a a new cache record for this key ...
             .concat({
               type: 'put',
