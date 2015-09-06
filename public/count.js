@@ -1,5 +1,5 @@
 var countCacheKeys = require('../private/count-cache-keys')
-var allLevelUPKeys = require('../private/all-level-up-keys')
+var allLevelUPKeys = require('../private/all-levelup-keys')
 
 module.exports = count
 

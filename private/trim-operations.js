@@ -1,4 +1,4 @@
-var allLevelUPKeys = require('./all-level-up-keys')
+var allLevelUPKeys = require('./all-levelup-keys')
 var countCacheKeys = require('./count-cache-keys')
 var decode = require('./decode')
 var extraHelper = require('./extra')

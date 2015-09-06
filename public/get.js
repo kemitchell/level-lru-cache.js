@@ -1,6 +1,6 @@
 var decode = require('../private/decode')
 var deleteOperation = require('../private/delete-operation')
-var levelUPKeysForCacheKey = require('../private/level-up-keys-for-cache-key')
+var levelUPKeysForCacheKey = require('../private/levelup-keys-for-cache-key')
 var putOperation = require('../private/put-operation')
 
 module.exports = get
