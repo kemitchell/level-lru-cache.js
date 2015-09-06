@@ -25,7 +25,5 @@ function put(cacheKey, value, callback) {
             // ... create a a new cache record for this key ...
             .concat(putOperation(cacheKey, value))
           // Run the batch.
-          cache.level.batch(batchOperations, function(error) {
-            if (error) { callback(error) }
-            else { callback(null) } }) } }) } }) }
+          cache.level.batch(batchOperations, callback) } }) } }) }
 
