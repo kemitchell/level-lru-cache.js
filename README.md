@@ -27,7 +27,7 @@ The general idea is to avoid issues where:
 
 1. A first `put` performs LevelUP read operations. They indicate the cache is about to bust its limit, and that key `'x'` is the oldest.
 
-2. Another operation operation reads or writes the cached value for `'x'`.
+2. Another operation reads or writes the cached value for `'x'`.
 
 3. The first `put` operation performs its LevelUP write operations, deleting `'x'`, which should actually be the most recently used value in the cache.
 
