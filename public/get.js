@@ -12,7 +12,7 @@ function get(cacheKey, callback) {
   var cache = this
   // Find all existing LevelUP keys with the key.
   existingLevelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
-    // If there aren't any, return undefined.
+    // If there aren't any, call back with undefined.
     if (existingLevelUPKeys.length === 0) { callback(null, undefined) }
     else {
       // Identify the latest timestamp and value for the key.
