@@ -1,7 +1,7 @@
 var deleteOperation = require('../private/delete-operation')
 var putOperation = require('../private/put-operation')
 var trimOperations = require('../private/trim-operations')
-var existingLevelUPKeysForCacheKey = require('../private/existing-level-up-keys-for-cache-key')
+var levelUPKeysForCacheKey = require('../private/level-up-keys-for-cache-key')
 
 // Cache a value by key.
 module.exports = put
@@ -16,7 +16,7 @@ function put(cacheKey, value, callback) {
   trimOperations.call(cache, function(error, trimOperations) {
     if (error) { callback(error) }
     else {
-      existingLevelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
+      levelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
         if (error) { callback(error) }
         else {
           var batchOperations = trimOperations

@@ -1,6 +1,6 @@
 var decode = require('../private/decode')
 var deleteOperation = require('../private/delete-operation')
-var existingLevelUPKeysForCacheKey = require('../private/existing-level-up-keys-for-cache-key')
+var levelUPKeysForCacheKey = require('../private/level-up-keys-for-cache-key')
 var putOperation = require('../private/put-operation')
 
 module.exports = get
@@ -11,7 +11,7 @@ function get(cacheKey, callback) {
     throw new TypeError('key must be a string') }
   var cache = this
   // Find all existing LevelUP keys with the key.
-  existingLevelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
+  levelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
     // If there aren't any, call back with undefined.
     if (existingLevelUPKeys.length === 0) { callback(null, undefined) }
     else {
