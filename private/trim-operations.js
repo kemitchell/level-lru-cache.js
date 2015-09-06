@@ -1,4 +1,4 @@
-var allLevelKeys = require('./all-level-keys')
+var allLevelUPKeys = require('./all-level-up-keys')
 var countCacheKeys = require('./count-cache-keys')
 var decode = require('./decode')
 var extraHelper = require('./extra')
@@ -10,26 +10,26 @@ module.exports = trimOperations
 // records that need to be trimmed to say within the cache's limit.
 function trimOperations(callback) {
   var cache = this
-  allLevelKeys.call(cache, function(error, levelKeys) {
+  allLevelUPKeys.call(cache, function(error, levelUPKeys) {
     if (error) { callback(error) }
     else {
-      var cacheKeyCount = countCacheKeys(levelKeys)
+      var cacheKeyCount = countCacheKeys(levelUPKeys)
       var extra = extraHelper.call(cache, cacheKeyCount)
       // We're still within quota. No need to trim anything.
       if (extra < 1) { callback(null, [ ]) }
       else {
         // A map from cache key to Array of LevelUP keys
-        var cacheKeyToLevelKeysMap = { }
+        var cacheKeyToLevelUPKeysMap = { }
         // A map from cache key to latest timestamp
         var cacheKeyToTimestampMap = { }
-        levelKeys.forEach(function(levelKey) {
-          var decoded = decode(levelKey)
+        levelUPKeys.forEach(function(levelUPKey) {
+          var decoded = decode(levelUPKey)
           var cacheKey = decoded[0]
           var timestamp = decoded[1]
           // Note the cache key has a record with the timestamp.
-          if (!cacheKeyToLevelKeysMap.hasOwnProperty(cacheKey)) {
-            cacheKeyToLevelKeysMap[cacheKey] = [ ] }
-          cacheKeyToLevelKeysMap[cacheKey].push(levelKey)
+          if (!cacheKeyToLevelUPKeysMap.hasOwnProperty(cacheKey)) {
+            cacheKeyToLevelUPKeysMap[cacheKey] = [ ] }
+          cacheKeyToLevelUPKeysMap[cacheKey].push(levelUPKey)
           // Note this timestamp if it's the newest we've seen for its cache key.
           var newest = (
             !cacheKeyToTimestampMap.hasOwnProperty(cacheKey) ||
@@ -52,8 +52,8 @@ function trimOperations(callback) {
           .reduce(
             function(batch, cacheKey) {
               // ... every record for those cache keys ...
-              var levelKeys = cacheKeyToLevelKeysMap[cacheKey]
-              return batch.concat(levelKeys.map(deleteOperation)) },
+              var levelUPKeys = cacheKeyToLevelUPKeysMap[cacheKey]
+              return batch.concat(levelUPKeys.map(deleteOperation)) },
             [ ])
         // ... and call back with it.
         callback(null, batchOperations) } } }) }

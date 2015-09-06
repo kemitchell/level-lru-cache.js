@@ -1,10 +1,10 @@
 var countCacheKeys = require('../private/count-cache-keys')
-var allLevelKeys = require('../private/all-level-keys')
+var allLevelUPKeys = require('../private/all-level-up-keys')
 
 module.exports = count
 
 // Call back with the number of cache keys in the underlying LevelUP.
 function count(callback) {
-  allLevelKeys.call(this, function(error, levelKeys) {
+  allLevelUPKeys.call(this, function(error, levelUPKeys) {
     if (error) { callback(error) }
-    else { callback(null, countCacheKeys(levelKeys)) } }) }
+    else { callback(null, countCacheKeys(levelUPKeys)) } }) }

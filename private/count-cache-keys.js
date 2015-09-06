@@ -2,12 +2,12 @@ var decode = require('./decode')
 
 module.exports = countCacheKeys
 
-function countCacheKeys(levelKeys) {
+function countCacheKeys(levelUPKeys) {
   var cacheKeysSeen = [ ]
-  return levelKeys
+  return levelUPKeys
     .reduce(
-      function(count, levelKey) {
-        var decoded = decode(levelKey)
+      function(count, levelUPKey) {
+        var decoded = decode(levelUPKey)
         var cacheKey = decoded[0]
         // Don't count a cache key twice if seen before.
         return (

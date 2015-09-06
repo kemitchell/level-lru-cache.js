@@ -1,10 +1,10 @@
 var encode = require('./encode')
 
-module.exports =  existingLevelKeysForCacheKey
+module.exports =  existingLevelUPKeysForCacheKey
 
 // Call back with all the LevelUP keys for a given cache key.
-function existingLevelKeysForCacheKey(cacheKey, callback) {
-  var levelKeys = [ ]
+function existingLevelUPKeysForCacheKey(cacheKey, callback) {
+  var levelUPKeys = [ ]
   var errored = false
   this.level.createReadStream({
     keys: true,
@@ -14,7 +14,7 @@ function existingLevelKeysForCacheKey(cacheKey, callback) {
   .on('error', function(error) {
     errored = true
     callback(error) })
-  .on('data', function(levelKey) {
-    levelKeys.push(levelKey) })
+  .on('data', function(levelUPKey) {
+    levelUPKeys.push(levelUPKey) })
   .on('end', function() {
-    if (!errored) { callback(null, levelKeys) } }) }
+    if (!errored) { callback(null, levelUPKeys) } }) }

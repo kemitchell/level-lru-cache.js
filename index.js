@@ -3,7 +3,7 @@ module.exports = LevelLRUCache
 // Notes to readers:
 //
 // Code and comments call keys that users use to `set` and `get` cache values
-// "cache keys". They call keys in the underlying LevelUP store "level keys".
+// "cache keys". They call keys in the underlying LevelUP store "LevelUP keys".
 //
 // The cache uses bytewise for partitioning the key spaces of its underlying
 // LevelUP. In bytewise' scheme, `null` is the lowest possible value and

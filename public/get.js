@@ -1,6 +1,6 @@
 var decode = require('../private/decode')
 var deleteOperation = require('../private/delete-operation')
-var existingLevelKeysForCacheKey = require('../private/existing-level-keys-for-cache-key')
+var existingLevelUPKeysForCacheKey = require('../private/existing-level-up-keys-for-cache-key')
 var putOperation = require('../private/put-operation')
 
 module.exports = get
@@ -11,26 +11,26 @@ function get(cacheKey, callback) {
     throw new TypeError('key must be a string') }
   var cache = this
   // Find all existing LevelUP keys with the key.
-  existingLevelKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelKeys) {
+  existingLevelUPKeysForCacheKey.call(cache, cacheKey, function(error, existingLevelUPKeys) {
     // If there aren't any, return undefined.
-    if (existingLevelKeys.length === 0) { callback(null, undefined) }
+    if (existingLevelUPKeys.length === 0) { callback(null, undefined) }
     else {
       // Identify the latest timestamp and value for the key.
       var latestTimestamp = 0
-      var latestLevelKey
-      existingLevelKeys.forEach(function(levelKey) {
-        var decoded = decode(levelKey)
+      var latestLevelUPKey
+      existingLevelUPKeys.forEach(function(levelUPKey) {
+        var decoded = decode(levelUPKey)
         var timestamp = decoded[1]
         if (timestamp > latestTimestamp) {
-          latestLevelKey = levelKey
+          latestLevelUPKey = levelUPKey
           latestTimestamp = timestamp } })
       // Fetch the latest value.
-      cache.level.get(latestLevelKey, function(error, latestValue) {
+      cache.level.get(latestLevelUPKey, function(error, latestValue) {
         if (error) { callback(error) }
         else {
           // Build a batch of operations that will ...
           // ... delete all existing records for this key ...
-          var batchOperations = existingLevelKeys.map(deleteOperation)
+          var batchOperations = existingLevelUPKeys.map(deleteOperation)
           // ... and write a new record with the current timestamp.
           .concat(putOperation(cacheKey, latestValue))
           // Run the batch.
