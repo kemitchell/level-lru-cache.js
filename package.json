@@ -7,10 +7,10 @@
     "bytewise": "^1.1.0"
   },
   "devDependencies": {
-    "async-series": "0.0.1",
-    "levelup": "~1.2.1",
-    "memdown": "~1.0.0",
-    "tape": "~4.2.0"
+    "async-series": "^0.0.1",
+    "levelup": "^1.2.1",
+    "memdown": "^1.0.0",
+    "tape": "^4.2.0"
   },
   "keywords": [
     "cache",
