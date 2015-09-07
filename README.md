@@ -12,7 +12,7 @@ var limit = 100
 
 var cache = new Cache(level, limit)
 
-cache.set('string key', value, function(error) {
+cache.put('string key', value, function(error) {
   /* ... */ })
 
 cache.get('string key', function(error, value) {
