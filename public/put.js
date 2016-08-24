@@ -1,4 +1,5 @@
 var deleteOperation = require('../private/delete-operation')
+var ecb = require('ecb')
 var putOperation = require('../private/put-operation')
 var trimOperations = require('../private/trim-operations')
 var levelUPKeysForCacheKey =
@@ -14,28 +15,20 @@ module.exports = function put (cacheKey, value, callback) {
   var cache = this
   // ... remove any extra cache records if we're going over the cache
   // limit ...
-  trimOperations.call(cache, function (error, trimOperations) {
-    if (error) {
-      callback(error)
-    } else {
-      levelUPKeysForCacheKey.call(
-        cache, cacheKey,
-        function (error, existingLevelUPKeys) {
-          if (error) {
-            callback(error)
-          } else {
-            var batchOperations = trimOperations
-            // ... delete any older cache records for the given cache
-            // key ...
-            .concat(existingLevelUPKeys.map(deleteOperation))
-            // ... create a new cache record for this key ...
-            .concat(putOperation(cacheKey, value))
-            // Run the batch.
-            cache.level.batch(batchOperations, callback)
-          }
-        }
-      )
-    }
-  })
+  trimOperations.call(cache, ecb(callback, function (trimOperations) {
+    levelUPKeysForCacheKey.call(
+      cache, cacheKey,
+      ecb(callback, function (existingLevelUPKeys) {
+        var batchOperations = trimOperations
+        // ... delete any older cache records for the given cache
+        // key ...
+        .concat(existingLevelUPKeys.map(deleteOperation))
+        // ... create a new cache record for this key ...
+        .concat(putOperation(cacheKey, value))
+        // Run the batch.
+        cache.level.batch(batchOperations, callback)
+      })
+    )
+  }))
 }
 
