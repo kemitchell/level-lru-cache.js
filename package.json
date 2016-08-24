@@ -1,7 +1,7 @@
 {
   "name": "level-lru-cache",
   "description": "simple LRU cache atop LevelUp",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
   "dependencies": {
     "bytewise": "^1.1.0",
