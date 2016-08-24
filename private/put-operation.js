@@ -1,9 +1,9 @@
 var encode = require('./encode')
 
-module.exports = putOperation
-
-function putOperation(cacheKey, value) {
+module.exports = function putOperation (cacheKey, value) {
   return {
     type: 'put',
-    key: encode([ cacheKey, Date.now() ]),
-    value: value } }
+    key: encode([cacheKey, Date.now()]),
+    value: value
+  }
+}

@@ -10,6 +10,7 @@
     "async-series": "^0.0.1",
     "levelup": "^1.2.1",
     "memdown": "^1.0.0",
+    "standard": "^8.0.0",
     "tape": "^4.2.0"
   },
   "keywords": [
@@ -20,6 +21,7 @@
   "license": "MIT",
   "repository": "kemitchell/level-lru-cache.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "lint": "standard"
   }
 }

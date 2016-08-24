@@ -6,17 +6,19 @@ var levelup = require('levelup')
 var memdown = require('memdown')
 
 // Any sane LevelDOWN will do.
-var level = levelup({ db: memdown })
+var level = levelup({db: memdown})
 // A loose limit for how many keys the cache should store.
 var limit = 100
 
 var cache = new Cache(level, limit)
 
 cache.put('string key', value, function(error) {
-  /* ... */ })
+  /* ... */
+})
 
 cache.get('string key', function(error, value) {
-  /* Value is `undefined` if the cache doesn't have a value. */ })
+  /* Value is `undefined` if the cache doesn't have a value. */
+})
 ```
 
 # Under the Hood

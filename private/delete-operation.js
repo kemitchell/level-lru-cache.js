@@ -1,4 +1,8 @@
 module.exports = deleteOperation
 
-function deleteOperation(levelUPKey) {
-  return { type: 'del', key: levelUPKey } }
+function deleteOperation (levelUPKey) {
+  return {
+    type: 'del',
+    key: levelUPKey
+  }
+}
